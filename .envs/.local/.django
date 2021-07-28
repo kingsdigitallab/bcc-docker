@@ -1,0 +1,12 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+
+
+# django-activecollab-digger
+# ------------------------------------------------------------------------------
+AC_DIGGER_COMPANY_ID=0
+AC_DIGGER_PROJECT_ID=0
+AC_DIGGER_USER_ID=0
+AC_DIGGER_API_TOKEN=0
