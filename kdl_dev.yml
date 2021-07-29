@@ -69,6 +69,9 @@ services:
     image: elasticsearch:7.9.1
     env_file:
       - ./.envs/.dev/.elasticsearch
+    ports:
+      - '127.0.0.1:9200:9203'
+      - '127.0.0.1:9300:9303'
     restart: unless-stopped
 
   kibana:
