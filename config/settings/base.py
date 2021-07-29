@@ -92,6 +92,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "bcc.users.apps.UsersConfig",
+    "bcc.cms.apps.CmsConfig"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
