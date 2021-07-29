@@ -70,8 +70,8 @@ services:
     env_file:
       - ./.envs/.dev/.elasticsearch
     ports:
-      - '127.0.0.1:9200:9203'
-      - '127.0.0.1:9300:9303'
+      - '127.0.0.1:9203:9200'
+      - '127.0.0.1:9303:9300'
     restart: unless-stopped
 
   kibana:
