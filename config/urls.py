@@ -14,6 +14,12 @@ urlpatterns = [
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
+    # todo temp as template until we decide where in wagtail it goes
+    path(
+        "leaflet/",
+        TemplateView.as_view(template_name="pages/leaflet.html"),
+        name="leaflet",
+    ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
