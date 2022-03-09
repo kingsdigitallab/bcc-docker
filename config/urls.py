@@ -20,6 +20,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="pages/leaflet.html"),
         name="leaflet",
     ),
+    path(
+        "d3/",
+        TemplateView.as_view(template_name="pages/d3.html"),
+        name="d3",
+    ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management

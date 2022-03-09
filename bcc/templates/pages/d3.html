@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+  <style>
+    svg {
+      border: 1px solid #eee;
+    }
+
+    .map path {
+      fill: #ffffff;
+      stroke: #777777;
+
+    }
+
+
+  </style>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+
+{% endblock %}
+
+
+{% block content %}
+  <div id="basemapBlock" style="display: grid; grid-template-columns: 75% 25%">
+    <div id="mapContainer" style="height: 800px;width: 800px">
+      <svg width="800" height="800">
+        <g class="map"></g>
+        <g class="bounding-box">
+          <rect></rect>
+        </g>
+        <g class="centroid">
+          <circle r="4"></circle>
+        </g>
+      </svg>
+    </div>
+    <div id="sidebar">
+      <h1>Story</h1>
+      <h2 class="title">Text could go here</h2>
+    </div>
+  </div>
+
+  <script>
+    let geojson;
+    let features = {
+      "type": "FeatureCollection",
+      "name": "BCC_points_export_07march22",
+      "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 1,
+            "map_source": 1,
+            "date_yr": 1975,
+            "map_text": "Noo York",
+            "norm_text": "New York",
+            "accuracy": 1
+          },
+          "geometry": {"type": "Point", "coordinates": [-73.806975078231048, 40.901800182986982]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 5,
+            "sub_type": 4,
+            "map_source": 12,
+            "date_yr": 1755,
+            "map_text": "French House",
+            "norm_text": "French House",
+            "accuracy": 2
+          },
+          "geometry": {"type": "Point", "coordinates": [-66.048401017803627, 49.51321377352896]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 5,
+            "sub_type": 4,
+            "map_source": 12,
+            "date_yr": 1755,
+            "map_text": "English H.",
+            "norm_text": "English House",
+            "accuracy": 2
+          },
+          "geometry": {"type": "Point", "coordinates": [-66.329719711006589, 49.286173106646224]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 12,
+            "date_yr": 1755,
+            "map_text": "Ye Olde Neil's Place",
+            "norm_text": "Neil's Place",
+            "accuracy": 2
+          },
+          "geometry": {"type": "Point", "coordinates": [-66.955994100403643, 48.844965097545895]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 1,
+            "map_source": 1,
+            "date_yr": 1590,
+            "map_text": "Roanoac",
+            "norm_text": "Roanoke",
+            "accuracy": 1
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.861013916563678, 35.850792882051685]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 3,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "CAPE MAY CO.",
+            "norm_text": "Cape May Company",
+            "accuracy": 4
+          },
+          "geometry": {"type": "Point", "coordinates": [-74.794524114181897, 39.225419600607907]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "Leeds",
+            "norm_text": "Leeds",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-74.444349048008235, 39.489407284905724]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "Greenwich",
+            "norm_text": "Greenwich",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.309781711551707, 39.394757262425429]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "Salem",
+            "norm_text": "Salem",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.466109866093518, 39.571397497760223]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "Dover",
+            "norm_text": "Dover",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.604929267326625, 39.093537216162069]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "Salisbury",
+            "norm_text": "Salisbury",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.651202401071004, 39.254478013267423]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "New T.",
+            "norm_text": "New Town",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-76.085169358079071, 39.204102448677183]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "George T",
+            "norm_text": "Georgetown",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-76.062658103825058, 39.357054644423748]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "Noxontown",
+            "norm_text": "Noxontown",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.678716156270369, 39.369624446102456]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "St. George",
+            "norm_text": "St George",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.644949274889356, 39.500988243033909]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 8,
+            "date_yr": 1752,
+            "map_text": "New Castle",
+            "norm_text": "Newcastle",
+            "accuracy": 3
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.548651131691585, 39.66388174599917]}
+        },
+
+      ]
+    };
+
+    let projection = d3.geoMercator()
+            .scale(800)
+            .translate([400, 400])
+            .center([-65.6572396, 49.5222944]);
+
+    let geoGenerator = d3.geoPath().pointRadius(5).projection(projection);
+
+    function handleMouseover(e, d) {
+      if (d.properties && d.properties.norm_text) {
+
+        let pixelArea = geoGenerator.area(d);
+        let bounds = geoGenerator.bounds(d);
+        let centroid = geoGenerator.centroid(d);
+        let measure = geoGenerator.measure(d);
+
+        d3.select('#sidebar .title')
+                .text(d.properties.norm_text);
+
+        d3.select('#mapContainer .bounding-box rect')
+                .attr('x', bounds[0][0])
+                .attr('y', bounds[0][1])
+                .attr('width', bounds[1][0] - bounds[0][0])
+                .attr('height', bounds[1][1] - bounds[0][1]);
+
+        d3.select('#mapContainer .centroid')
+                .style('display', 'inline')
+                .attr('transform', 'translate(' + centroid + ')');
+      }
+    }
+
+    function updateWorldMap() {
+      // Update world map
+      let allFeatures = geojson.features.concat(features.features)
+      let u = d3.select('g.map')
+              .selectAll('path')
+              .data(allFeatures)
+              .join('path')
+              .attr('d', geoGenerator)
+              .on('mouseover', handleMouseover)
+              .style('fill', function (feature) {
+                if (feature.properties && feature.properties.feat_type) {
+                  switch (feature.properties.feat_type) {
+                    case 1:
+                      return 'orange';
+                    case 3:
+                      return 'red';
+                    case 5:
+                      return 'blue';
+                    default:
+                      return '#ffffff';
+                  }
+                }
+                return '#ffffff';
+
+              });
+
+
+    }
+
+    d3.json('https://gist.githubusercontent.com/d3indepth/f28e1c3a99ea6d84986f35ac8646fac7/raw/c58cede8dab4673c91a3db702d50f7447b373d98/ne_110m_land.json')
+            .then(function (json) {
+              geojson = json;
+              updateWorldMap();
+            });
+
+  </script>
+{% endblock %}
