@@ -17,17 +17,61 @@
 {% endblock %}
 
 {% block content %}
-  <div id="basemapBlock" style="display: grid; grid-template-columns: 75% 25%">
+  <div id="basemapBlock" style="display: grid; grid-template-columns: 60% 40%">
     <div id="map" style="height: 80vh"></div>
-    <div id="sidebar">
+    <div id="sidebar" style="height: 80vh; padding-left: 5%; overflow: scroll;">
       <h1>Story</h1>
+      <p>
+      <h4><a href="#" data-key="part1" class="story-trigger">1752: The Beginning</a></h4>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In auctor ipsum id augue elementum mollis. In pharetra
+      porta nulla, a placerat mi porttitor eu. Donec elementum urna ac risus semper, ac congue lacus convallis.
+      Vestibulum dignissim sapien sit amet felis tristique, ullamcorper pharetra nibh rutrum. Donec at varius tellus.
+      Integer non neque a est maximus varius sit amet placerat erat. Sed at consectetur arcu.
+
+      Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
+      consequat mi. Cras pulvinar ex eros, nec elementum sem scelerisque ac. Etiam gravida non augue id rutrum. Nullam
+      commodo molestie nisl, sit amet sodales elit semper sed. Nullam tempus ut mi vitae blandit. Mauris ac posuere
+      eros. Phasellus molestie leo et dolor euismod, eget fringilla quam blandit. Proin mollis, nulla vel molestie
+      vulputate, metus nisi gravida nisi, sed ultrices nisi augue eget velit. Donec pellentesque, quam nec lacinia
+      congue, magna ipsum tincidunt neque, a dictum ipsum augue sit amet ex. Etiam quis odio ut augue laoreet iaculis
+      eget non nisi. Sed venenatis luctus massa, non fermentum lorem tincidunt a. Aenean at quam porta, aliquet leo vel,
+      iaculis dolor. Mauris vel dapibus leo.
+
+
+      </p>
+
+      <p>
+      <h4><a href="#" data-key="part2" class="story-trigger">1755: The Revenge!</a></h4>
+      Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
+      consequat mi. Cras pulvinar ex eros, nec elementum sem scelerisque ac. Etiam gravida non augue id rutrum. Nullam
+      commodo molestie nisl, sit amet sodales elit semper sed. Nullam tempus ut mi vitae blandit. Mauris ac posuere
+      eros. Phasellus molestie leo et dolor euismod, eget fringilla quam blandit. Proin mollis, nulla vel molestie
+      vulputate, metus nisi gravida nisi, sed ultrices nisi augue eget velit. Donec pellentesque, quam nec lacinia
+      congue, magna ipsum tincidunt neque, a dictum ipsum augue sit amet ex. Etiam quis odio ut augue laoreet iaculis
+      eget non nisi. Sed venenatis luctus massa, non fermentum lorem tincidunt a. Aenean at quam porta, aliquet leo vel,
+      iaculis dolor. Mauris vel dapibus leo.
+      </p>
+
+
+      <p>
+      <h4><a href="#" data-key="part3" class="story-trigger">1975: Noo Yok!</a></h4>
+      Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
+      consequat mi. Cras pulvinar ex eros, nec elementum sem scelerisque ac. Etiam gravida non augue id rutrum. Nullam
+      commodo molestie nisl, sit amet sodales elit semper sed. Nullam tempus ut mi vitae blandit. Mauris ac posuere
+      eros. Phasellus molestie leo et dolor euismod, eget fringilla quam blandit. Proin mollis, nulla vel molestie
+      vulputate, metus nisi gravida nisi, sed ultrices nisi augue eget velit. Donec pellentesque, quam nec lacinia
+      congue, magna ipsum tincidunt neque, a dictum ipsum augue sit amet ex. Etiam quis odio ut augue laoreet iaculis
+      eget non nisi. Sed venenatis luctus massa, non fermentum lorem tincidunt a. Aenean at quam porta, aliquet leo vel,
+      iaculis dolor. Mauris vel dapibus leo.
+      </p>
+
     </div>
   </div>
 
 
 
   <script>
-    let map = L.map('map').setView([49.5222944, -65.6572396], 5);
+    let map = L.map('map').setView([-75.651202401071004, 39.254478013267423], 5);
     let osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     let russell = new L.tileLayer('/static/maps/Russell_1794/{z}/{x}/{y}.png', {
@@ -39,99 +83,28 @@
     }).addTo(map)
 
     let filters = {
-      'year_start': -1,
-      'year_end': -1,
+      'year_start': 1752,
+      'year_end': 1752,
     }
 
-    let features = {
-      "type": "FeatureCollection",
+    let featuresPart1 = {
+      "type": "Feature1975",
       "name": "BCC_points_export_07march22",
       "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
-      "features": [
-        {
-          "type": "Feature",
-          "properties": {
-            "id": null,
-            "feat_type": 1,
-            "sub_type": 1,
-            "map_source": 1,
-            "date_yr": 1975,
-            "map_text": "Noo York",
-            "norm_text": "New York",
-            "accuracy": 1
-          },
-          "geometry": {"type": "Point", "coordinates": [-73.806975078231048, 40.901800182986982]}
+      "features": [{
+        "type": "Feature",
+        "properties": {
+          "id": null,
+          "feat_type": 3,
+          "sub_type": 2,
+          "map_source": 8,
+          "date_yr": 1752,
+          "map_text": "CAPE MAY CO.",
+          "norm_text": "Cape May Company",
+          "accuracy": 4
         },
-        {
-          "type": "Feature",
-          "properties": {
-            "id": null,
-            "feat_type": 5,
-            "sub_type": 4,
-            "map_source": 12,
-            "date_yr": 1755,
-            "map_text": "French House",
-            "norm_text": "French House",
-            "accuracy": 2
-          },
-          "geometry": {"type": "Point", "coordinates": [-66.048401017803627, 49.51321377352896]}
-        },
-        {
-          "type": "Feature",
-          "properties": {
-            "id": null,
-            "feat_type": 5,
-            "sub_type": 4,
-            "map_source": 12,
-            "date_yr": 1755,
-            "map_text": "English H.",
-            "norm_text": "English House",
-            "accuracy": 2
-          },
-          "geometry": {"type": "Point", "coordinates": [-66.329719711006589, 49.286173106646224]}
-        },
-        {
-          "type": "Feature",
-          "properties": {
-            "id": null,
-            "feat_type": 1,
-            "sub_type": 2,
-            "map_source": 12,
-            "date_yr": 1755,
-            "map_text": "Ye Olde Neil's Place",
-            "norm_text": "Neil's Place",
-            "accuracy": 2
-          },
-          "geometry": {"type": "Point", "coordinates": [-66.955994100403643, 48.844965097545895]}
-        },
-        {
-          "type": "Feature",
-          "properties": {
-            "id": null,
-            "feat_type": 1,
-            "sub_type": 1,
-            "map_source": 1,
-            "date_yr": 1590,
-            "map_text": "Roanoac",
-            "norm_text": "Roanoke",
-            "accuracy": 1
-          },
-          "geometry": {"type": "Point", "coordinates": [-75.861013916563678, 35.850792882051685]}
-        },
-        {
-          "type": "Feature",
-          "properties": {
-            "id": null,
-            "feat_type": 3,
-            "sub_type": 2,
-            "map_source": 8,
-            "date_yr": 1752,
-            "map_text": "CAPE MAY CO.",
-            "norm_text": "Cape May Company",
-            "accuracy": 4
-          },
-          "geometry": {"type": "Point", "coordinates": [-74.794524114181897, 39.225419600607907]}
-        },
+        "geometry": {"type": "Point", "coordinates": [-74.794524114181897, 39.225419600607907]}
+      },
         {
           "type": "Feature",
           "properties": {
@@ -243,7 +216,100 @@
             "accuracy": 3
           },
           "geometry": {"type": "Point", "coordinates": [-75.678716156270369, 39.369624446102456]}
+        }]
+    }
+
+    let featuresPart2 = {
+      "type": "Feature1975",
+      "name": "BCC_points_export_07march22",
+      "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+      "features": [{
+        "type": "Feature",
+        "properties": {
+          "id": null,
+          "feat_type": 5,
+          "sub_type": 4,
+          "map_source": 12,
+          "date_yr": 1755,
+          "map_text": "French House",
+          "norm_text": "French House",
+          "accuracy": 2
         },
+        "geometry": {"type": "Point", "coordinates": [-66.048401017803627, 49.51321377352896]}
+      },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 5,
+            "sub_type": 4,
+            "map_source": 12,
+            "date_yr": 1755,
+            "map_text": "English H.",
+            "norm_text": "English House",
+            "accuracy": 2
+          },
+          "geometry": {"type": "Point", "coordinates": [-66.329719711006589, 49.286173106646224]}
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 2,
+            "map_source": 12,
+            "date_yr": 1755,
+            "map_text": "Ye Olde Neil's Place",
+            "norm_text": "Neil's Place",
+            "accuracy": 2
+          },
+          "geometry": {"type": "Point", "coordinates": [-66.955994100403643, 48.844965097545895]}
+        }]
+    }
+
+    let featuresPart3 = {
+      "type": "Feature1975",
+      "name": "BCC_points_export_07march22",
+      "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+      "features": [{
+        "type": "Feature",
+        "properties": {
+          "id": null,
+          "feat_type": 1,
+          "sub_type": 1,
+          "map_source": 1,
+          "date_yr": 1975,
+          "map_text": "Noo York",
+          "norm_text": "New York",
+          "accuracy": 1
+        },
+        "geometry": {"type": "Point", "coordinates": [-73.806975078231048, 40.901800182986982]}
+      }]
+    }
+
+
+    let features = {
+      "type": "FeatureCollection",
+      "name": "BCC_points_export_07march22",
+      "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+      "features": [
+
+
+        {
+          "type": "Feature",
+          "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 1,
+            "map_source": 1,
+            "date_yr": 1590,
+            "map_text": "Roanoac",
+            "norm_text": "Roanoke",
+            "accuracy": 1
+          },
+          "geometry": {"type": "Point", "coordinates": [-75.861013916563678, 35.850792882051685]}
+        },
+
         {
           "type": "Feature",
           "properties": {
@@ -962,7 +1028,7 @@
     }
 
     function filterFeatures(feature, layer) {
-      if (feature.properties) {
+      /*if (feature.properties) {
         if (filters.year_start >= 0 || filters.year_end >= 0) {
           // Filter by year
           if (feature.properties.date_yr && feature.properties.date_yr > 0) {
@@ -974,30 +1040,71 @@
             }
           }
         }
-      }
+      }*/
       return true;
     }
 
-    let geoLayer = L.geoJSON(features, {
+    /*let geoLayer = L.geoJSON(features, {
+      style: lineStyle,
+      onEachFeature: onEachFeature,
+      filter: filterFeatures,
+    }).addTo(map);*/
+
+    let layerPart1 = L.geoJSON(featuresPart1, {
       style: lineStyle,
       onEachFeature: onEachFeature,
       filter: filterFeatures,
     }).addTo(map);
 
+    let layerPart2 = L.geoJSON(featuresPart2, {
+      style: lineStyle,
+      onEachFeature: onEachFeature,
+      filter: filterFeatures,
+    });
+
+    let layerPart3 = L.geoJSON(featuresPart3, {
+      style: lineStyle,
+      onEachFeature: onEachFeature,
+      filter: filterFeatures,
+    });
+
+
+    /*
+    Lots of other controls could be added here, for instance:
+     - A marker popup to start open
+     - whether we clear other layers or not
+     */
+    let storyLayers = {
+      "part1": {
+        "centre": [-75.651202401071004, 39.254478013267423],
+        "zoom": 5,
+        "layer": layerPart1,
+      },
+      "part2": {
+        "centre": [-75.651202401071004, 39.254478013267423],
+        "zoom": 5,
+        "layer": layerPart2,
+      },
+      "part3": {
+        "centre": [-73.806975078231048, 40.901800182986982],
+        "zoom": 3,
+        "layer": layerPart3,
+      },
+
+    }
+
     let baseMaps = {
-      "Open Street Map": osm
+      "Open Street Map": osm,
+      //"Russell 1794": russell,
     };
 
     let uneditableOverlays = {};
 
     let overlayMaps = {
-      "Russell 1794": russell,
-      //"Mitchell 1755": mitchell,
-      //"Herbert 1755": herbert,
-      //"Bradley 1796": bradley,
-      //"Seller 1676": seller,
-      //"White 1590": white,
-      //"Mitchell Annotations": geoJson
+      "Part 1": layerPart1,
+      "Part 2": layerPart2,
+      "Part 3": layerPart3,
+
     };
 
     let appearanceControl = L.control.appearance(baseMaps, overlayMaps, uneditableOverlays, {
@@ -1006,7 +1113,23 @@
       color: true,
     });
     appearanceControl.addTo(map);
+    //map.removeLayer(layerPart2);
+    //map.removeLayer(layerPart1);
 
+
+  </script>
+  <script defer>
+    $(document).ready(function () {
+      $('a.story-trigger').on('click', function () {
+        let key = $(this).data('key');
+        // Remove all layers
+        for (const [key, storyLayer] of Object.entries(storyLayers)) {
+          map.removeLayer(storyLayer.layer);
+        }
+        storyLayers[key].layer.addTo(map);
+        map.setView(storyLayers[key].centre, storyLayers[key].zoom);
+      })
+    });
   </script>
 
 {% endblock content %}
