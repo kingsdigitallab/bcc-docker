@@ -20,10 +20,12 @@
 {% block content %}
   <div id="basemapBlock" style="display: grid; grid-template-columns: 60% 40%">
     <div id="map" style="height: 80vh"></div>
-    <div id="sidebar" class="story-container" style="height: 80vh; padding-left: 5%; padding-bottom: 500px;overflow: scroll;">
+    <div id="sidebar" class="story-container"
+         style="height: 80vh; padding-left: 5%; padding-bottom: 500px;overflow: scroll;">
       <h1>Story</h1>
+      <div><a href="#" class="story-autoplay">Autoplay</a></div>
       <p>
-      <h4><a href="#" data-key="part1" class="story-trigger">1752: The Beginning</a></h4>
+      <h4><a href="#" data-key="part1" class="story-trigger story-first">1752: The Beginning</a></h4>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. In auctor ipsum id augue elementum mollis. In pharetra
       porta nulla, a placerat mi porttitor eu. Donec elementum urna ac risus semper, ac congue lacus convallis.
       Vestibulum dignissim sapien sit amet felis tristique, ullamcorper pharetra nibh rutrum. Donec at varius tellus.
@@ -55,7 +57,7 @@
 
 
       <p>
-      <h4><a href="#" data-key="part3" class="story-trigger">1975: Noo Yok!</a></h4>
+      <h4><a href="#" data-key="part3" class="story-trigger story-last">1975: Noo Yok!</a></h4>
       Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
       consequat mi. Cras pulvinar ex eros, nec elementum sem scelerisque ac. Etiam gravida non augue id rutrum. Nullam
       commodo molestie nisl, sit amet sodales elit semper sed. Nullam tempus ut mi vitae blandit. Mauris ac posuere
@@ -72,6 +74,9 @@
 
 
   <script>
+    const storyContainerSelector = 'div.story-container';
+    const storyTriggerSelector = 'a.story-trigger';
+
     let map = L.map('map');
     let osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -215,12 +220,12 @@
      */
     function setCurrentStoryPartMap(storyPartName) {
       // Remove all layers
-        for (const [key, storyLayer] of Object.entries(storyLayers)) {
-          map.removeLayer(storyLayer.layer);
-        }
-        storyLayers[storyPartName].layer.addTo(map);
-        map.setView(storyLayers[storyPartName].centre, storyLayers[storyPartName].zoom);
-        currentStoryPart = storyPartName;
+      for (const [key, storyLayer] of Object.entries(storyLayers)) {
+        map.removeLayer(storyLayer.layer);
+      }
+      storyLayers[storyPartName].layer.addTo(map);
+      map.setView(storyLayers[storyPartName].centre, storyLayers[storyPartName].zoom);
+      currentStoryPart = storyPartName;
 
     }
 
@@ -237,12 +242,12 @@
       // Find highest story trigger.
       let highest = 10000;
       let highestTrigger = null;
-      const triggers = $('a.story-trigger:visible');
+      const triggers = $('a.story-trigger');
       triggers.sort(function (a, b) {
-        if ($(a).offset().top <0){
+        if ($(a).offset().top < 0) {
           return 1;
         }
-        if ($(b).offset().top <0){
+        if ($(b).offset().top < 0) {
           return -1;
         }
         return $(a).offset().top - $(b).offset().top;
@@ -257,14 +262,51 @@
     }
 
 
+    /*
+     Set up the offsets for the autoplay
+     */
+    class StoryAutoplay {
+      autoplayTopSelector;
+      autoplayBottomSelector;
+      autoplayTriggerSelector;
+      containerSelector;
+      playInterval = 4000;
+
+      autoplayFinished(){
+
+      }
+
+      scrollAnimation() {
+        const scrollTop =  $(this.autoplayBottomSelector).offset()['top'];
+        const interval = this.playInterval;
+        $(this.containerSelector).animate({
+          scrollTop:scrollTop
+        }, interval, this.autoplayFinished);
+      }
+
+      constructor(container,autoplayTrigger, autoplayTop, autoplayBottom) {
+        this.autoplayTriggerSelector = autoplayTrigger;
+        this.autoplayTopSelector = autoplayTop;
+        this.autoplayBottomSelector = autoplayBottom;
+        this.containerSelector = container;
+
+        $('a.story-autoplay').on('click', this.scrollAnimation.bind(this));
+      }
+
+    }
+
+
+    let autoplay = null;
     $(document).ready(function () {
-      $('a.story-trigger').on('click', function () {
+      $(storyTriggerSelector).on('click', function () {
         let key = $(this).data('key');
         setCurrentStoryPartMap(key);
       });
 
+
       // Set up scroll triggers
-      $('div.story-container').scroll(scrollStory);
+      $(storyContainerSelector).scroll(scrollStory);
+      autoplay = new StoryAutoplay(storyContainerSelector,"story-autoplay",'.story-first','.story-last');
 
     });
   </script>
