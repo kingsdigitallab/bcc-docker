@@ -42,6 +42,10 @@
 
 
       </p>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
 
       <p>
       <h4><a href="#" data-key="part2" class="story-trigger">1755: The Revenge!</a></h4>
@@ -55,7 +59,10 @@
       iaculis dolor. Mauris vel dapibus leo.
       </p>
 
-
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <p>
       <h4><a href="#" data-key="part3" class="story-trigger story-last">1975: Noo Yok!</a></h4>
       Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
@@ -165,11 +172,11 @@
     let storyLayers = {
       "part1": {
         "centre": [39.254478013267423, -75.651202401071004],
-        "zoom": 5,
+        "zoom": 7,
         "layer": layerPart1,
       },
       "part2": {
-        "centre": [39.254478013267423, -75.651202401071004],
+        "centre": [48.844965097545895, -66.955994100403643],
         "zoom": 5,
         "layer": layerPart2,
       },
@@ -224,7 +231,10 @@
         map.removeLayer(storyLayer.layer);
       }
       storyLayers[storyPartName].layer.addTo(map);
-      map.setView(storyLayers[storyPartName].centre, storyLayers[storyPartName].zoom);
+      map.flyTo(storyLayers[storyPartName].centre, storyLayers[storyPartName].zoom,{
+        animate: true,
+        duration: 1.5
+      });
       currentStoryPart = storyPartName;
 
     }
@@ -270,7 +280,7 @@
       autoplayBottomSelector;
       autoplayTriggerSelector;
       containerSelector;
-      playInterval = 4000;
+      playInterval = 8000;
 
       autoplayFinished(){
 

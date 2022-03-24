@@ -122,113 +122,6 @@ let featuresPart1 = {
                 "sub_type": 2,
                 "map_source": 8,
                 "date_yr": 1752,
-                "map_text": "Noxontown",
-                "norm_text": "Noxontown",
-                "accuracy": 3
-            },
-            "geometry": {"type": "Point", "coordinates": [-75.678716156270369, 39.369624446102456]}
-        }]
-}
-
-let featuresPart2 = {
-    "type": "Feature1975",
-    "name": "BCC_points_export_07march22",
-    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
-    "features": [{
-        "type": "Feature",
-        "properties": {
-            "id": null,
-            "feat_type": 5,
-            "sub_type": 4,
-            "map_source": 12,
-            "date_yr": 1755,
-            "map_text": "French House",
-            "norm_text": "French House",
-            "accuracy": 2
-        },
-        "geometry": {"type": "Point", "coordinates": [-66.048401017803627, 49.51321377352896]}
-    },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 5,
-                "sub_type": 4,
-                "map_source": 12,
-                "date_yr": 1755,
-                "map_text": "English H.",
-                "norm_text": "English House",
-                "accuracy": 2
-            },
-            "geometry": {"type": "Point", "coordinates": [-66.329719711006589, 49.286173106646224]}
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 1,
-                "sub_type": 2,
-                "map_source": 12,
-                "date_yr": 1755,
-                "map_text": "Ye Olde Neil's Place",
-                "norm_text": "Neil's Place",
-                "accuracy": 2
-            },
-            "geometry": {"type": "Point", "coordinates": [-66.955994100403643, 48.844965097545895]}
-        }]
-};
-
-let featuresPart3 = {
-    "type": "Feature1975",
-    "name": "BCC_points_export_07march22",
-    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
-    "features": [{
-        "type": "Feature",
-        "properties": {
-            "id": null,
-            "feat_type": 1,
-            "sub_type": 1,
-            "map_source": 1,
-            "date_yr": 1975,
-            "map_text": "Noo York",
-            "norm_text": "New York",
-            "accuracy": 1
-        },
-        "geometry": {"type": "Point", "coordinates": [-73.806975078231048, 40.901800182986982]}
-    }]
-};
-
-
-let features = {
-    "type": "FeatureCollection",
-    "name": "BCC_points_export_07march22",
-    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
-    "features": [
-
-
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 1,
-                "sub_type": 1,
-                "map_source": 1,
-                "date_yr": 1590,
-                "map_text": "Roanoac",
-                "norm_text": "Roanoke",
-                "accuracy": 1
-            },
-            "geometry": {"type": "Point", "coordinates": [-75.861013916563678, 35.850792882051685]}
-        },
-
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 1,
-                "sub_type": 2,
-                "map_source": 8,
-                "date_yr": 1752,
                 "map_text": "St. George",
                 "norm_text": "St George",
                 "accuracy": 3
@@ -252,70 +145,16 @@ let features = {
         {
             "type": "Feature",
             "properties": {
-                "id": 1,
-                "feat_type": 3,
-                "sub_type": 3,
-                "map_source": 12,
-                "date_yr": 1755,
-                "accuracy": 3,
-                "map_text": "Limits of Canada and the Iroquois according to De L'Isle Du Fer and other Geographers",
-                "norm_text": null
-            },
-            "geometry": {
-                "type": "MultiLineString",
-                "coordinates": [[[-78.7030031, 45.0804622], [-72.6063487, 45.574481]]]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "id": null,
-                "feat_type": 4,
-                "sub_type": 6,
-                "map_source": 12,
-                "date_yr": 1755,
-                "accuracy": 3,
-                "map_text": "Ship Channel 120 Leagues to Quebec.",
-                "norm_text": "Ship Channel 120 Leagues to Quebec."
+                "feat_type": 1,
+                "sub_type": 2,
+                "map_source": 8,
+                "date_yr": 1752,
+                "map_text": "Noxontown",
+                "norm_text": "Noxontown",
+                "accuracy": 3
             },
-            "geometry": {
-                "type": "MultiLineString",
-                "coordinates": [[[-65.6515624, 49.5402848], [-65.6155436, 49.6459642], [-65.5018001, 49.7354892], [-65.3956394, 49.8028306], [-65.2913745, 49.8847384], [-65.1662566, 49.92503], [-64.9728925, 49.9213685], [-64.7909029, 49.9042779], [-64.658202, 49.8676348], [-64.4818995, 49.8419681], [-64.2278723, 49.8285182], [-63.9757407, 49.7942651], [-63.7539408, 49.7465151], [-63.5473067, 49.7122041], [-63.3482555, 49.6447367], [-63.1890145, 49.5636523], [-63.0790624, 49.4984414], [-62.9994419, 49.4331435], [-62.9558402, 49.3936763]]]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 4,
-                "sub_type": 5,
-                "map_source": 12,
-                "date_yr": 1755,
-                "accuracy": 3,
-                "map_text": null,
-                "norm_text": null
-            },
-            "geometry": {
-                "type": "MultiLineString",
-                "coordinates": [[[-77.9474406, 34.0586282], [-77.8644337, 34.1697981], [-77.827813, 34.2808218], [-77.7814267, 34.3675201], [-77.6886542, 34.4521157], [-77.6129714, 34.5285807], [-77.4542816, 34.6130132], [-77.3639505, 34.699367], [-77.3395366, 34.7816206], [-77.3273297, 34.8397504], [-77.3444194, 34.9238658], [-77.3468608, 34.9958961], [-77.3346539, 35.0378846], [-77.3566263, 35.1337772]]]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 4,
-                "sub_type": 6,
-                "map_source": 12,
-                "date_yr": 1755,
-                "accuracy": 2,
-                "map_text": "Coming down",
-                "norm_text": "Coming down"
-            },
-            "geometry": {
-                "type": "MultiLineString",
-                "coordinates": [[[-65.6572396, 49.5222944], [-65.5013891, 49.5896951], [-65.3099937, 49.6038728], [-65.0146979, 49.6056448], [-64.804163, 49.6091884], [-64.5717543, 49.58615], [-64.2819269, 49.5701939], [-64.0249103, 49.545363], [-63.7760962, 49.5418147], [-63.5163453, 49.499215], [-63.2675313, 49.4530234], [-63.0788701, 49.4121253], [-62.9394249, 49.3943328]]]
-            }
+            "geometry": {"type": "Point", "coordinates": [-75.678716156270369, 39.369624446102456]}
         },
         {
             "type": "Feature",
@@ -759,40 +598,7 @@ let features = {
                 "coordinates": [[[-75.3107823, 39.3965677], [-75.2902092, 39.3992871], [-75.2352574, 39.4011697], [-75.1775986, 39.3951034], [-75.1426785, 39.3858983]]]
             }
         },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 3,
-                "sub_type": 7,
-                "map_source": 12,
-                "date_yr": 1755,
-                "accuracy": 4,
-                "map_text": "By the several Conquests here mentioned, the Territories of the Six Nations extend to the Limits here laid down; which they have been in Possession of about 100 Years.",
-                "norm_text": "By the several Conquests here mentioned, the Territories of the Six Nations extend to the Limits here laid down; which they have been in Possession of about 100 Years."
-            },
-            "geometry": {
-                "type": "MultiPolygon",
-                "coordinates": [[[[-77.7658121, 45.7672156], [-77.768398, 45.312613], [-76.4521863, 45.3471538], [-76.4340851, 45.7762341], [-77.7658121, 45.7672156]]]]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "id": null,
-                "feat_type": 3,
-                "sub_type": 7,
-                "map_source": 12,
-                "date_yr": 1755,
-                "accuracy": 4,
-                "map_text": "The Bounds of Pensylvania and Maryland and the Delaware Counties are here laid down according to the late Decree in Chancery in which it is supposed otherwise to affect the Claims of any.",
-                "norm_text": "The Bounds of Pensylvania and Maryland and the Delaware Counties are here laid down according to the late Decree in Chancery in which it is supposed otherwise to affect the Claims of any."
-            },
-            "geometry": {
-                "type": "MultiPolygon",
-                "coordinates": [[[[-74.6155767, 38.6213372], [-74.6429189, 38.2894604], [-73.0447673, 38.2873143], [-73.0310962, 38.6106553], [-74.6155767, 38.6213372]]]]
-            }
-        },
+
         {
             "type": "Feature",
             "properties": {
@@ -911,7 +717,204 @@ let features = {
                 "type": "MultiPolygon",
                 "coordinates": [[[[-75.8119807, 39.2005978], [-75.7307711, 39.2037444], [-75.6823161, 39.2587861], [-75.6211382, 39.2655978], [-75.5900079, 39.2771238], [-75.5196262, 39.3818184], [-75.5940683, 39.5667433], [-75.4993239, 39.7230743], [-75.4370632, 39.8115049], [-75.4830819, 39.8354137], [-75.5466961, 39.8499628], [-75.6130172, 39.8416494], [-75.6847524, 39.807346], [-75.7307711, 39.7470138], [-75.7429525, 39.7282792], [-75.7632549, 39.5124661], [-75.8119807, 39.2005978]]]]
             }
+        }
+    ]
+}
+
+let featuresPart2 = {
+    "type": "Feature1975",
+    "name": "BCC_points_export_07march22",
+    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "id": null,
+            "feat_type": 5,
+            "sub_type": 4,
+            "map_source": 12,
+            "date_yr": 1755,
+            "map_text": "French House",
+            "norm_text": "French House",
+            "accuracy": 2
         },
+        "geometry": {"type": "Point", "coordinates": [-66.048401017803627, 49.51321377352896]}
+    },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 5,
+                "sub_type": 4,
+                "map_source": 12,
+                "date_yr": 1755,
+                "map_text": "English H.",
+                "norm_text": "English House",
+                "accuracy": 2
+            },
+            "geometry": {"type": "Point", "coordinates": [-66.329719711006589, 49.286173106646224]}
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 1,
+                "sub_type": 2,
+                "map_source": 12,
+                "date_yr": 1755,
+                "map_text": "Ye Olde Neil's Place",
+                "norm_text": "Neil's Place",
+                "accuracy": 2
+            },
+            "geometry": {"type": "Point", "coordinates": [-66.955994100403643, 48.844965097545895]}
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 4,
+                "sub_type": 6,
+                "map_source": 12,
+                "date_yr": 1755,
+                "accuracy": 3,
+                "map_text": "Ship Channel 120 Leagues to Quebec.",
+                "norm_text": "Ship Channel 120 Leagues to Quebec."
+            },
+            "geometry": {
+                "type": "MultiLineString",
+                "coordinates": [[[-65.6515624, 49.5402848], [-65.6155436, 49.6459642], [-65.5018001, 49.7354892], [-65.3956394, 49.8028306], [-65.2913745, 49.8847384], [-65.1662566, 49.92503], [-64.9728925, 49.9213685], [-64.7909029, 49.9042779], [-64.658202, 49.8676348], [-64.4818995, 49.8419681], [-64.2278723, 49.8285182], [-63.9757407, 49.7942651], [-63.7539408, 49.7465151], [-63.5473067, 49.7122041], [-63.3482555, 49.6447367], [-63.1890145, 49.5636523], [-63.0790624, 49.4984414], [-62.9994419, 49.4331435], [-62.9558402, 49.3936763]]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 4,
+                "sub_type": 5,
+                "map_source": 12,
+                "date_yr": 1755,
+                "accuracy": 3,
+                "map_text": null,
+                "norm_text": null
+            },
+            "geometry": {
+                "type": "MultiLineString",
+                "coordinates": [[[-77.9474406, 34.0586282], [-77.8644337, 34.1697981], [-77.827813, 34.2808218], [-77.7814267, 34.3675201], [-77.6886542, 34.4521157], [-77.6129714, 34.5285807], [-77.4542816, 34.6130132], [-77.3639505, 34.699367], [-77.3395366, 34.7816206], [-77.3273297, 34.8397504], [-77.3444194, 34.9238658], [-77.3468608, 34.9958961], [-77.3346539, 35.0378846], [-77.3566263, 35.1337772]]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 4,
+                "sub_type": 6,
+                "map_source": 12,
+                "date_yr": 1755,
+                "accuracy": 2,
+                "map_text": "Coming down",
+                "norm_text": "Coming down"
+            },
+            "geometry": {
+                "type": "MultiLineString",
+                "coordinates": [[[-65.6572396, 49.5222944], [-65.5013891, 49.5896951], [-65.3099937, 49.6038728], [-65.0146979, 49.6056448], [-64.804163, 49.6091884], [-64.5717543, 49.58615], [-64.2819269, 49.5701939], [-64.0249103, 49.545363], [-63.7760962, 49.5418147], [-63.5163453, 49.499215], [-63.2675313, 49.4530234], [-63.0788701, 49.4121253], [-62.9394249, 49.3943328]]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": 1,
+                "feat_type": 3,
+                "sub_type": 3,
+                "map_source": 12,
+                "date_yr": 1755,
+                "accuracy": 3,
+                "map_text": "Limits of Canada and the Iroquois according to De L'Isle Du Fer and other Geographers",
+                "norm_text": null
+            },
+            "geometry": {
+                "type": "MultiLineString",
+                "coordinates": [[[-78.7030031, 45.0804622], [-72.6063487, 45.574481]]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 3,
+                "sub_type": 7,
+                "map_source": 12,
+                "date_yr": 1755,
+                "accuracy": 4,
+                "map_text": "By the several Conquests here mentioned, the Territories of the Six Nations extend to the Limits here laid down; which they have been in Possession of about 100 Years.",
+                "norm_text": "By the several Conquests here mentioned, the Territories of the Six Nations extend to the Limits here laid down; which they have been in Possession of about 100 Years."
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[[-77.7658121, 45.7672156], [-77.768398, 45.312613], [-76.4521863, 45.3471538], [-76.4340851, 45.7762341], [-77.7658121, 45.7672156]]]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 3,
+                "sub_type": 7,
+                "map_source": 12,
+                "date_yr": 1755,
+                "accuracy": 4,
+                "map_text": "The Bounds of Pensylvania and Maryland and the Delaware Counties are here laid down according to the late Decree in Chancery in which it is supposed otherwise to affect the Claims of any.",
+                "norm_text": "The Bounds of Pensylvania and Maryland and the Delaware Counties are here laid down according to the late Decree in Chancery in which it is supposed otherwise to affect the Claims of any."
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[[-74.6155767, 38.6213372], [-74.6429189, 38.2894604], [-73.0447673, 38.2873143], [-73.0310962, 38.6106553], [-74.6155767, 38.6213372]]]]
+            }
+        },
+    ]
+};
+
+let featuresPart3 = {
+    "type": "Feature1975",
+    "name": "BCC_points_export_07march22",
+    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "id": null,
+            "feat_type": 1,
+            "sub_type": 1,
+            "map_source": 1,
+            "date_yr": 1975,
+            "map_text": "Noo York",
+            "norm_text": "New York",
+            "accuracy": 1
+        },
+        "geometry": {"type": "Point", "coordinates": [-73.806975078231048, 40.901800182986982]}
+    }]
+};
+
+
+let features = {
+    "type": "FeatureCollection",
+    "name": "BCC_points_export_07march22",
+    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+    "features": [
+
+
+        {
+            "type": "Feature",
+            "properties": {
+                "id": null,
+                "feat_type": 1,
+                "sub_type": 1,
+                "map_source": 1,
+                "date_yr": 1590,
+                "map_text": "Roanoac",
+                "norm_text": "Roanoke",
+                "accuracy": 1
+            },
+            "geometry": {"type": "Point", "coordinates": [-75.861013916563678, 35.850792882051685]}
+        },
+
 
     ]
 };
