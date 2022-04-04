@@ -1,6 +1,8 @@
 let featuresPart1 = {
     "type": "Feature1975",
-    "name": "BCC_points_export_07march22",
+    "name": "Part 1",
+    "id": "part1",
+    "visibleLayers":["part1"],
     "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
     "features": [{
         "type": "Feature",
@@ -723,7 +725,9 @@ let featuresPart1 = {
 
 let featuresPart2 = {
     "type": "Feature1975",
-    "name": "BCC_points_export_07march22",
+    "name": "Part 2",
+    "id": "part2",
+    "visibleLayers":["part2"],
     "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
     "features": [{
         "type": "Feature",
@@ -874,7 +878,9 @@ let featuresPart2 = {
 
 let featuresPart3 = {
     "type": "Feature1975",
-    "name": "BCC_points_export_07march22",
+    "name": "Part 3",
+    "id": "part3",
+    "visibleLayers":["part1", "part2", "part3"],
     "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
     "features": [{
         "type": "Feature",
@@ -896,6 +902,7 @@ let featuresPart3 = {
 let features = {
     "type": "FeatureCollection",
     "name": "BCC_points_export_07march22",
+
     "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
     "features": [
 

@@ -172,18 +172,24 @@
     let storyLayers = {
       "part1": {
         "centre": [39.254478013267423, -75.651202401071004],
+        "label":featuresPart1.name,
         "zoom": 7,
         "layer": layerPart1,
+        "visibleLayers":featuresPart1.visibleLayers
       },
       "part2": {
         "centre": [48.844965097545895, -66.955994100403643],
         "zoom": 5,
         "layer": layerPart2,
+        "label":featuresPart2.name,
+        "visibleLayers":featuresPart2.visibleLayers
       },
       "part3": {
         "centre": [40.87865469975083, -73.78570418804885],
         "zoom": 9,
         "layer": layerPart3,
+        "label":featuresPart3.name,
+        "visibleLayers":featuresPart3.visibleLayers
       },
 
     }
@@ -214,6 +220,7 @@
     let storyStart = "part1";
     let currentStoryPart = storyStart;
     map.setView(storyLayers[storyStart].centre, storyLayers[storyStart].zoom);
+    // $('span:contains("Part 2")').prev()
 
 
   </script>
@@ -223,14 +230,29 @@
      * Set where we are in the story on the map.
      * By default we remove all other layers
      * Then set the center and zoom
+     * todo: Currently we're manually manipulating the controls
+     * it would be nice to do something cleaner and more stable
+     * but no way to directly touch the objects I can see
+     *
      * @param storyPartName key storylayer dictionary
      */
     function setCurrentStoryPartMap(storyPartName) {
       // Remove all layers
       for (const [key, storyLayer] of Object.entries(storyLayers)) {
         map.removeLayer(storyLayer.layer);
+        if ($("span:contains('"+storyLayer.label+"')").prev().is(':checked')){
+          // Uncheck box in controls
+          $("span:contains('"+storyLayer.label+"')").prev().prop("checked", false);
+        }
       }
-      storyLayers[storyPartName].layer.addTo(map);
+      // For each layer listed as visible in the layers
+      for (let vl =0; vl < storyLayers[storyPartName].visibleLayers.length;vl++){
+        let sLayer = storyLayers[storyLayers[storyPartName].visibleLayers[vl]];
+        console.log();
+        sLayer.layer.addTo(map);
+        $("span:contains('"+sLayer.label+"')").prev().prop("checked", true);
+      }
+
       map.flyTo(storyLayers[storyPartName].centre, storyLayers[storyPartName].zoom,{
         animate: true,
         duration: 1.5
