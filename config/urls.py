@@ -21,6 +21,11 @@ urlpatterns = [
         name="leaflet",
     ),
     path(
+        "story/",
+        TemplateView.as_view(template_name="stories/story.html"),
+        name="story",
+    ),
+    path(
         "d3/",
         TemplateView.as_view(template_name="pages/d3.html"),
         name="d3",

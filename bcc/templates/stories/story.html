@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+{% load static i18n compress %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+  <style>
+    div#sidebar.story-container img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+          integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+          crossorigin=""></script>
+
+  <script src="{% static 'js/leaflet/plugins/L.Control.Appearance.js' %}"></script>
+
+
+{% endblock %}
+
+{% block content %}
+  <div id="basemapBlock" style="display: grid; grid-template-columns: 60% 40%">
+    <div id="map" style="height: 80vh"></div>
+    <div id="sidebar" class="story-container"
+         style="height: 80vh; padding-left: 5%; padding-bottom: 500px;overflow: scroll;">
+      <h1>Story</h1>
+      <div><a href="#" class="story-autoplay">Autoplay</a></div>
+       <p class="story-first"></p>
+      <p>
+        <!----------- this part should be called in markdown ---------------------->
+
+        <!-- frames 1 to 4 are a slow zoom into the region of interest without any particular POIs
+        I've included img tahs inline based on snippets from the Word doc illustrations
+        At the moment, there isn't always suitable data to identify as being connected to a particular paragraph, so I've made sure I added
+        a few points, lines and polys for testing -->
+      <p class="story-trigger" data-storyframe="1">
+        Maps of early America do not tell the whole truth. While they frequently include scales and lines of latitude,
+        their aim was not geographical accuracy.
+      </p>
+      <p class="story-trigger" data-storyframe="2">
+        For the British – the makers of the bulk of the maps used here – the aim was to demonstrate actual and claimed
+        possession of territory in North-eastern North America.
+      </p>
+      <p class="story-trigger" data-storyframe="3">
+        In the process, mapmakers captured information that reveal some of the deeper dynamics of the natural and human
+        spaces of the known Continent.
+      </p>
+      <p class="story-trigger" data-storyframe="4">
+        In this map, we seek to bring these stories into greater relief, by illustrating the common worlds of early
+        America.
+      </p>
+      <p class="story-trigger" data-storyframe="4"><!-- Para added for structure - no change in Map view here -->
+        We begin with Indigenous peoples, who are a constant presence in British maps. When mapmakers drew colonial
+        possessions, there were drawing a coastal, interior, and Continental landscape that was dominated by Indigenous
+        nations, who remained in control of 85% of North America in 1780. While they drew colourful boundaries around
+        British colonies and imposed their names over wide expanses of paper and land, settlement was fragmented, small
+        scale, and confined to a narrow strip of the Atlantic coast. Given the relative imbalance of power, colonists
+        tended to resort to violence to defend claims to land, and war with neighbouring Indigenous nations was endemic.
+        However, this does not mean that the Northeast was defined by two separate and antagonistic worlds; the early
+        Northeast was occasionally pushed apart by violence, but it was also drawn together by pathways of connection,
+        movement, diplomacy, alliance and exchange. This model of inter-cultural relationship has been called a ‘middle
+        ground’, and it existed in tension with a colonial impulse to establish and defend hard borders and boundaries,
+        lines that demarcated exclusive territorial claims and excluded ‘outsiders’.
+      </p>
+      <!-- Story start -->
+      <h1><em>We came out of this ground:</em> Indigenous homelands</h1>
+      <p class="story-trigger" data-storyframe="5">American history is Indigenous history. It begins with the deep history of the land and its
+        peoples as they existed long before the arrival of Europeans. The first parties of English – most of them
+        professional soldiers – made coastal landings and probed the dozens of rivers that led inland. They claimed
+        possession of these spaces according to legal arguments that gave ownership of empty land to whomever discovered
+        and occupied it. But they soon discovered that the land was not empty. The Indigenous name of the place they
+        called ‘Virginia’ is Tsenacommacah: the densely inhabited land. </p>
+      <h2>The Indigenous landscape was more than a homeland: it was a site of creation</h2>
+      <img src="{% static 'images/stories/5_white_1590_croatoan.jpg' %}"></img>
+      <img src="{% static 'images/stories/5_bleau_1650_secotan.jpg' %}"></img>
+      <p class="story-trigger" data-storyframe="6">
+        For the coastal Algonquian it was the Dawnland, for the Haudenosaunee it was Turtle Island – the place where
+        everything had its beginning and its being. The land was a cultural and moral space, infused with fundamental
+        beliefs, and overlayered with stories that were enacted, remembered, and shared among kin and with Europeans.
+        The land was political. Haudenosaunee oral tradition drew the land and its history together in the story of the
+        formation of the Great League of Peace, and where Deganawidah taught Hiawatha the rituals of the condolence
+        ceremony. As the Onondaga diplomat Canasatego declared at a treaty council in 1744, ‘our Ancestors came out of
+        this very Ground, and their Children have remained here ever since’.
+      </p>
+      <img src="{% static 'images/stories/6_catawba_map_charlestown.jpg' %}"></img>
+      <p class="story-trigger" data-storyframe="7">
+        Indigenous peoples were map-makers, but these maps were carried in the mind and then sketched with charcoal on
+        hide or bark, or drawn with a stick on soft soil; at other times they were gestural, using the hand as an
+        approximation of a region and its key points of settlement.3 Europeans copied these maps, which allow us to
+        glimpse the ways in which Indigenous communities saw themselves in relation to Europeans. The famous Catawba
+        deerskin map portrayed two contrasting ways of being on the land: the villages and towns of the Catawba are
+        represented as a network of circles connected by paths, while the colonial city of Charlestown is rendered as a
+        grid system of streets. The relative size of circles (a sacred shape in Indigenous culture) denotes the
+        importance and power of each nation; the paths linking them represent connections of kinship, trade and
+        alliance.
+      </p>
+      <p class="story-trigger" data-storyframe="8">
+        <em>Haudenosaunee</em> translates as the ‘whole house’, and their homelands were conceived as a metaphorical
+        Longhouse with ‘doors’ facing east and west. The Seneca guarded the western door and the Mohawk the eastern one
+        that faced toward the British. Between them were the Cayuga, Onondaga and the Oneida. British mapmakers took
+        care in noting the positions of each nation and territorial extent of the Confederacy as a whole. In John
+        Mitchell’s map of the British and French territories in North America, the label ‘Six Nations or Iroquois’ cuts
+        across Virginia, Pennsylvania, New York, and north of the Great Lakes. Mitchell also identified the
+        Haudenosaunee’s much smaller original homeland <em>Irocoisia</em>, centred on Lake Champlain.
+      </p>
+      <img src="{% static 'images/stories/8_mitchell_1755_lake_champlain.jpg' %}"></img>
+      <img src="{% static 'images/stories/8_bowen_1722_iriquois.jpg' %}"></img>
+      <p class="story-trigger" data-storyframe="9">
+        Yet this was not a wholly peaceful landscape: in the early 17th century the Haudenosaunee carried out campaigns
+        against neighbouring nations, seeking captives and access to new hunting lands. In 1657, a missionary observed
+        that the Iroquois homelands contained ‘more foreigners than natives of the country’. For the British, the
+        Haudenosaunee were like themselves: an expanding commercial and military power that brought other nations under
+        their control and, as allies of the Crown, into Britain’s imperial network.
+      </p>
+      <img src="{% static 'images/stories/9_mitchell_1755_haudenosaunee_conquests.jpg' %}"></img>
+      <p class="story-trigger" data-storyframe="10">
+        The United Colonies emerged as a new power in 1775 and sought diplomatic relations with the Haudenosaunee.
+        However, the peoples of the longhouse divided over the conflict between Britain and her colonies: the Mohawk,
+        Seneca, Onondaga, and the Cayuga remained allied to the Crown via the Covenant Chain. In 1779, George Washington
+        planned a massive military operation ‘directed against the hostile tribes of the six nations of Indians, with
+        their associated and adherents’. He continued that it was necessary to complete ‘the total destruction and
+        devastation of their settlements’.
+      </p></p>
+      <img src="{% static 'images/stories/10_sullivan_map_conflict.jpg' %}"></img>
+      <p class="story-trigger" data-storyframe="11">
+        The village worlds of the Haudenosaunee were broken apart. Thousands fled to the British stronghold at Fort
+        Niagara, and the nations as whole experienced famine and displacement, their lands seized by the United States
+        by the Treaty of Fort Stanwix (1784). But the Iroquois did not vanish. Early American maps positioned them on
+        the western edges of their former homelands.
+      </p>
+      <img src="{% static 'images/stories/11_cary_1783_fort_niagara.jpg' %}"></img>
+      <img src="{% static 'images/stories/11_bradley_1796_fort_niagara.jpg' %}"></img>
+
+      <!-------------------- END Markdown --------------------------------->
+      <p class="story-last"></p>
+
+    </div>
+  </div>
+
+  <script>
+    const storyContainerSelector = 'div.story-container';
+    const storyTriggerSelector = 'p.story-trigger';
+
+    let map = L.map('map');
+    let osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    let russell = new L.tileLayer('/static/maps/Russell_1794/{z}/{x}/{y}.png', {
+      minZoom: 6,
+      maxZoom: 12,
+      tms: false,
+      attribution: 'Generated by TilesXYZ',
+      transparent: true
+    }).addTo(map)
+
+    let filters = {
+      'year_start': 1752,
+      'year_end': 1752,
+    }
+
+
+    let highlightLineStyle = {
+      stroke: true,
+      color: '#0000ff',
+      weight: 5,
+      opacity: 0.6,
+      fillColor: '#ff7800',
+      fill: true
+    };
+
+    let defaultLineStyle = {
+      stroke: true,
+      color: '#000000',
+      weight: 5,
+      opacity: 0.2,
+      fill: true
+    };
+
+
+    let baseMaps = {
+      "Open Street Map": osm,
+      "Russell 1794": russell,
+    };
+
+    let uneditableOverlays = {};
+
+    let overlayMaps = {};
+
+    let appearanceControl = L.control.appearance(baseMaps, overlayMaps, uneditableOverlays, {
+      opacity: true,
+      remove: true,
+      color: true,
+    });
+    appearanceControl.addTo(map);
+
+    // Initial view
+    // This could be changed based on get string etc.
+    map.setView([39.254478013267423, -75.651202401071004], 7);
+
+  </script>
+  <script defer>
+    // This will need to be either loaded in Elevnty or kept in a central file
+    let story_geojson = '/static/data/stories/BCC_Stories.geojson';
+    let shape_urls = [
+      '/static/data/stories/BCC_Lines.geojson',
+      '/static/data/stories/BCC_Points.geojson',
+      '/static/data/stories/BCC_Poly.geojson'
+    ];
+    let storyData = '';
+    let shapeLayer = null;
+    let storyFeatures = {}; // All features from json files
+    let current_story = 0; // Our current story
+    let current_frame = 0; // current frame
+
+    // and we have a function that does something with the geoJSON file:
+    function handleStoriesGeoJson(data) {
+      // data is the JSON parsed into a JS object
+      console.log(data)
+    }
+
+    class Story {
+      constructor(fid, multiPolygonBounds, description) {
+        this.fid = fid;
+        this.multiPolygonBounds = multiPolygonBounds;
+        this.description = description;
+      }
+    }
+
+        /*
+     Set up the offsets for the autoplay
+     */
+    class StoryAutoplay {
+      autoplayTopSelector;
+      autoplayBottomSelector;
+      autoplayTriggerSelector;
+      containerSelector;
+      playInterval = 8000;
+
+      autoplayFinished(){
+
+      }
+
+      scrollAnimation() {
+        const scrollTop =  $(this.autoplayBottomSelector).offset()['top'];
+        const interval = this.playInterval;
+        $(this.containerSelector).animate({
+          scrollTop:scrollTop
+        }, interval, this.autoplayFinished);
+      }
+
+      constructor(container,autoplayTrigger, autoplayTop, autoplayBottom) {
+        this.autoplayTriggerSelector = autoplayTrigger;
+        this.autoplayTopSelector = autoplayTop;
+        this.autoplayBottomSelector = autoplayBottom;
+        this.containerSelector = container;
+
+        $('a.story-autoplay').on('click', this.scrollAnimation.bind(this));
+      }
+
+    }
+
+    function onEachFeature(feature, layer) {
+      // does this feature have a property named popupContent?
+      if (feature.properties && (feature.properties.map_text || feature.properties.norm_text)) {
+        if (feature.properties.map_text) {
+          layer.bindPopup(feature.properties.map_text);
+        } else {
+          layer.bindPopup(feature.properties.norm_text);
+        }
+      }
+
+    }
+
+    async function loadStoryData(story_url) {
+      let storyData = [];
+      let response = await fetch(story_url);
+      let data = await response.json();
+      for (let s = 0; s < data.features.length; s++) {
+        storyData.push(new Story(
+                data.features[s].properties.FID,
+                L.geoJson(data.features[s].geometry),
+                data.features[s].Desc
+        ))
+      }
+      return storyData;
+    }
+
+    async function loadShapeFile(shape_url) {
+      let response = await fetch(shape_url);
+      let data = await response.json();
+      // Organise into stories
+      /*for (let s = 0; s < data.features.length; s++) {
+        let feature = data.features[s];
+        if (feature.properties && feature.properties.story_link){
+          let story_link = feature.properties.story_link;
+          if (storyFeatures[story_link]){
+            storyFeatures.story_link.push(feature);
+          }
+        } else{
+          // General Layer?
+        }
+      }*/
+      return data;
+    }
+
+    /**
+     * Load all shape files asynchronously
+     */
+    async function loadShapes(shape_urls) {
+      let shapePromises = [];
+      let shapeGeoJSON = [];
+      let shapeLayers = {};
+      for (let u = 0; u < shape_urls.length; u++) {
+        shapePromises.push(loadShapeFile(shape_urls[u]));
+      }
+      await Promise.all(shapePromises).then((values) => {
+        for (let v = 0; v < values.length; v++) {
+          shapeGeoJSON.push(...values[v].features);
+        }
+      });
+      // Arrange into stories and default layer
+
+      let shapeLayer = L.geoJSON(shapeGeoJSON, {
+        style: defaultLineStyle,
+        onEachFeature: onEachFeature,
+      }).addTo(map);
+
+      return shapeLayer;
+    }
+
+    /** Load all the Geojson files
+     *  This includes story bounds and all shapes
+     * @return {Promise<void>}
+     */
+    async function loadGeoJsonData() {
+      storyData = await loadStoryData(story_geojson);
+      shapeLayer = await loadShapes(shape_urls);
+
+    }
+
+    function getStoryByFID(fid) {
+      for (let s = 0; s < storyData.length; s++) {
+        if (storyData[s].fid === fid) {
+          return storyData[s]
+        }
+      }
+      return null;
+    }
+
+    /**
+     * Keep track of where we are in the story by attaching to
+     * the scroll event of the container.
+     *
+     * If the topmost story heading changes, and it's at least in the top half
+     * of the screen, advance the story
+     * @param event
+     */
+    function scrollStory(event) {
+
+      // Find highest story trigger.
+      let highest = 10000;
+      let highestTrigger = null;
+      const triggers = $(storyTriggerSelector);
+      triggers.sort(function (a, b) {
+        if ($(a).offset().top < 0) {
+          return 1;
+        }
+        if ($(b).offset().top < 0) {
+          return -1;
+        }
+        return $(a).offset().top - $(b).offset().top;
+      });
+      // If this isn't the current trigger
+      if (current_story !== parseInt($(triggers[0]).data('storyframe'))){
+        current_story = parseInt($(triggers[0]).data('storyframe'));
+        console.log(current_story);
+        setCurrentStory(current_story);
+      }
+
+      /*if (currentStoryPart !== $(triggers[0]).data('key')) {
+        // and it's at least above the halfway point set it
+        if (($(triggers[0]).offset().top / $(document).height()) < 0.4) {
+          setCurrentStoryPartMap($(triggers[0]).data('key'));
+        }
+      }*/
+    }
+
+    /**
+     * Fly to bounds of story_link
+     * Highlight relevant shapes
+     * unhighlight all others
+     * @param story_link
+     */
+    function setCurrentStory(fid) {
+      let story = getStoryByFID(fid);
+      // Pan to bounds of current story
+      if (story) {
+        map.flyToBounds(story.multiPolygonBounds.getBounds());
+      }
+
+      // Change highlights for layers
+      //shapeLayer.setStyle(highlightLineStyle);
+
+      //shapeLayer.resetStyle();
+
+    }
+
+    async function loadStory() {
+      await loadGeoJsonData();
+    }
+
+    loadStory();
+
+    let autoplay = null;
+    $(document).ready(function () {
+      // Set up scroll triggers
+      $(storyContainerSelector).scroll(scrollStory);
+      autoplay = new StoryAutoplay(storyContainerSelector,"story-autoplay",'.story-first','.story-last');
+    });
+  </script>
+
+{% endblock %}

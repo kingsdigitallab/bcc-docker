@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+{% load static i18n compress %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+          integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+          crossorigin=""></script>
+
+  <script src="{% static 'js/leaflet/plugins/L.Control.Appearance.js' %}"></script>
+  <script src="{% static 'data/BCC_Stories.json' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+  <div id="basemapBlock" style="display: grid; grid-template-columns: 60% 40%">
+    <div id="map" style="height: 80vh"></div>
+    <div id="sidebar" class="story-container"
+         style="height: 80vh; padding-left: 5%; padding-bottom: 500px;overflow: scroll;">
+      <h1>Story</h1>
+      <div><a href="#" class="story-autoplay">Autoplay</a></div>
+      <p>
+      <h4><a href="#" data-key="part1" class="story-trigger story-first">1752: The Beginning</a></h4>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In auctor ipsum id augue elementum mollis. In pharetra
+      porta nulla, a placerat mi porttitor eu. Donec elementum urna ac risus semper, ac congue lacus convallis.
+      Vestibulum dignissim sapien sit amet felis tristique, ullamcorper pharetra nibh rutrum. Donec at varius tellus.
+      Integer non neque a est maximus varius sit amet placerat erat. Sed at consectetur arcu.
+
+      Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
+      consequat mi. Cras pulvinar ex eros, nec elementum sem scelerisque ac. Etiam gravida non augue id rutrum. Nullam
+      commodo molestie nisl, sit amet sodales elit semper sed. Nullam tempus ut mi vitae blandit. Mauris ac posuere
+      eros. Phasellus molestie leo et dolor euismod, eget fringilla quam blandit. Proin mollis, nulla vel molestie
+      vulputate, metus nisi gravida nisi, sed ultrices nisi augue eget velit. Donec pellentesque, quam nec lacinia
+      congue, magna ipsum tincidunt neque, a dictum ipsum augue sit amet ex. Etiam quis odio ut augue laoreet iaculis
+      eget non nisi. Sed venenatis luctus massa, non fermentum lorem tincidunt a. Aenean at quam porta, aliquet leo vel,
+      iaculis dolor. Mauris vel dapibus leo.
+
+
+      </p>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+      <p>
+      <h4><a href="#" data-key="part2" class="story-trigger">1755: The Revenge!</a></h4>
+      Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
+      consequat mi. Cras pulvinar ex eros, nec elementum sem scelerisque ac. Etiam gravida non augue id rutrum. Nullam
+      commodo molestie nisl, sit amet sodales elit semper sed. Nullam tempus ut mi vitae blandit. Mauris ac posuere
+      eros. Phasellus molestie leo et dolor euismod, eget fringilla quam blandit. Proin mollis, nulla vel molestie
+      vulputate, metus nisi gravida nisi, sed ultrices nisi augue eget velit. Donec pellentesque, quam nec lacinia
+      congue, magna ipsum tincidunt neque, a dictum ipsum augue sit amet ex. Etiam quis odio ut augue laoreet iaculis
+      eget non nisi. Sed venenatis luctus massa, non fermentum lorem tincidunt a. Aenean at quam porta, aliquet leo vel,
+      iaculis dolor. Mauris vel dapibus leo.
+      </p>
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <p>
+      <h4><a href="#" data-key="part3" class="story-trigger story-last">1975: Noo Yok!</a></h4>
+      Nulla euismod metus id erat dignissim, a iaculis dolor faucibus. Ut ultrices justo sed elit auctor tristique at
+      consequat mi. Cras pulvinar ex eros, nec elementum sem scelerisque ac. Etiam gravida non augue id rutrum. Nullam
+      commodo molestie nisl, sit amet sodales elit semper sed. Nullam tempus ut mi vitae blandit. Mauris ac posuere
+      eros. Phasellus molestie leo et dolor euismod, eget fringilla quam blandit. Proin mollis, nulla vel molestie
+      vulputate, metus nisi gravida nisi, sed ultrices nisi augue eget velit. Donec pellentesque, quam nec lacinia
+      congue, magna ipsum tincidunt neque, a dictum ipsum augue sit amet ex. Etiam quis odio ut augue laoreet iaculis
+      eget non nisi. Sed venenatis luctus massa, non fermentum lorem tincidunt a. Aenean at quam porta, aliquet leo vel,
+      iaculis dolor. Mauris vel dapibus leo.
+      </p>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    const storyContainerSelector = 'div.story-container';
+    const storyTriggerSelector = 'a.story-trigger';
+
+    let map = L.map('map');
+    let osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    let russell = new L.tileLayer('/static/maps/Russell_1794/{z}/{x}/{y}.png', {
+      minZoom: 6,
+      maxZoom: 12,
+      tms: false,
+      attribution: 'Generated by TilesXYZ',
+      transparent: true
+    }).addTo(map)
+
+    let filters = {
+      'year_start': 1752,
+      'year_end': 1752,
+    }
+
+
+    let lineStyle = {
+      stroke: true,
+      color: '#0000ff',
+      weight: 5,
+      opacity: 0.6,
+      fillColor: '#ff7800',
+      fill: true
+    };
+
+    function onEachFeature(feature, layer) {
+      // does this feature have a property named popupContent?
+      if (feature.properties && (feature.properties.map_text || feature.properties.norm_text)) {
+        if (feature.properties.map_text) {
+          layer.bindPopup(feature.properties.map_text);
+        } else {
+          layer.bindPopup(feature.properties.norm_text);
+        }
+
+      }
+    }
+
+    function filterFeatures(feature, layer) {
+      /*if (feature.properties) {
+        if (filters.year_start >= 0 || filters.year_end >= 0) {
+          // Filter by year
+          if (feature.properties.date_yr && feature.properties.date_yr > 0) {
+            // Exact but will be range later
+            if (feature.properties.date_yr === filters.year_start){
+              return true;
+            }else{
+              return false;
+            }
+          }
+        }
+      }*/
+      return true;
+    }
+
+    /*let geoLayer = L.geoJSON(features, {
+      style: lineStyle,
+      onEachFeature: onEachFeature,
+      filter: filterFeatures,
+    }).addTo(map);*/
+
+    let layerPart1 = L.geoJSON(featuresPart1, {
+      style: lineStyle,
+      onEachFeature: onEachFeature,
+      filter: filterFeatures,
+    }).addTo(map);
+
+    let layerPart2 = L.geoJSON(featuresPart2, {
+      style: lineStyle,
+      onEachFeature: onEachFeature,
+      filter: filterFeatures,
+    });
+
+    let layerPart3 = L.geoJSON(featuresPart3, {
+      style: lineStyle,
+      onEachFeature: onEachFeature,
+      filter: filterFeatures,
+    });
+
+
+    /*
+    Lots of other controls could be added here, for instance:
+     - A marker popup to start open
+     - whether we clear other layers or not
+     */
+    let storyLayers = {
+      "part1": {
+        "centre": [39.254478013267423, -75.651202401071004],
+        "label":featuresPart1.name,
+        "zoom": 7,
+        "layer": layerPart1,
+        "visibleLayers":featuresPart1.visibleLayers
+      },
+      "part2": {
+        "centre": [48.844965097545895, -66.955994100403643],
+        "zoom": 5,
+        "layer": layerPart2,
+        "label":featuresPart2.name,
+        "visibleLayers":featuresPart2.visibleLayers
+      },
+      "part3": {
+        "centre": [40.87865469975083, -73.78570418804885],
+        "zoom": 9,
+        "layer": layerPart3,
+        "label":featuresPart3.name,
+        "visibleLayers":featuresPart3.visibleLayers
+      },
+
+    }
+
+    let baseMaps = {
+      "Open Street Map": osm,
+      "Russell 1794": russell,
+    };
+
+    let uneditableOverlays = {};
+
+    let overlayMaps = {
+      "Part 1": layerPart1,
+      "Part 2": layerPart2,
+      "Part 3": layerPart3,
+
+    };
+
+    let appearanceControl = L.control.appearance(baseMaps, overlayMaps, uneditableOverlays, {
+      opacity: true,
+      remove: true,
+      color: true,
+    });
+    appearanceControl.addTo(map);
+
+    // Initial view
+    // This could be changed based on get string etc.
+    let storyStart = "part1";
+    let currentStoryPart = storyStart;
+    map.setView(storyLayers[storyStart].centre, storyLayers[storyStart].zoom);
+    // $('span:contains("Part 2")').prev()
+
+
+  </script>
+  <script defer>
+
+    /**
+     * Set where we are in the story on the map.
+     * By default we remove all other layers
+     * Then set the center and zoom
+     * todo: Currently we're manually manipulating the controls
+     * it would be nice to do something cleaner and more stable
+     * but no way to directly touch the objects I can see
+     *
+     * @param storyPartName key storylayer dictionary
+     */
+    function setCurrentStoryPartMap(storyPartName) {
+      // Remove all layers
+      for (const [key, storyLayer] of Object.entries(storyLayers)) {
+        map.removeLayer(storyLayer.layer);
+        if ($("span:contains('"+storyLayer.label+"')").prev().is(':checked')){
+          // Uncheck box in controls
+          $("span:contains('"+storyLayer.label+"')").prev().prop("checked", false);
+        }
+      }
+      // For each layer listed as visible in the layers
+      for (let vl =0; vl < storyLayers[storyPartName].visibleLayers.length;vl++){
+        let sLayer = storyLayers[storyLayers[storyPartName].visibleLayers[vl]];
+        console.log();
+        sLayer.layer.addTo(map);
+        $("span:contains('"+sLayer.label+"')").prev().prop("checked", true);
+      }
+
+      map.flyTo(storyLayers[storyPartName].centre, storyLayers[storyPartName].zoom,{
+        animate: true,
+        duration: 1.5
+      });
+      currentStoryPart = storyPartName;
+
+    }
+
+    /**
+     * Keep track of where we are in the story by attaching to
+     * the scroll event of the container.
+     *
+     * If the topmost story heading changes, and it's at least in the top half
+     * of the screen, advance the story
+     * @param event
+     */
+    function scrollStory(event) {
+
+      // Find highest story trigger.
+      let highest = 10000;
+      let highestTrigger = null;
+      const triggers = $('a.story-trigger');
+      triggers.sort(function (a, b) {
+        if ($(a).offset().top < 0) {
+          return 1;
+        }
+        if ($(b).offset().top < 0) {
+          return -1;
+        }
+        return $(a).offset().top - $(b).offset().top;
+      });
+      // If this isn't the current trigger
+      if (currentStoryPart !== $(triggers[0]).data('key')) {
+        // and it's at least above the halfway point set it
+        if (($(triggers[0]).offset().top / $(document).height()) < 0.4) {
+          setCurrentStoryPartMap($(triggers[0]).data('key'));
+        }
+      }
+    }
+
+
+    /*
+     Set up the offsets for the autoplay
+     */
+    class StoryAutoplay {
+      autoplayTopSelector;
+      autoplayBottomSelector;
+      autoplayTriggerSelector;
+      containerSelector;
+      playInterval = 8000;
+
+      autoplayFinished(){
+
+      }
+
+      scrollAnimation() {
+        const scrollTop =  $(this.autoplayBottomSelector).offset()['top'];
+        const interval = this.playInterval;
+        $(this.containerSelector).animate({
+          scrollTop:scrollTop
+        }, interval, this.autoplayFinished);
+      }
+
+      constructor(container,autoplayTrigger, autoplayTop, autoplayBottom) {
+        this.autoplayTriggerSelector = autoplayTrigger;
+        this.autoplayTopSelector = autoplayTop;
+        this.autoplayBottomSelector = autoplayBottom;
+        this.containerSelector = container;
+
+        $('a.story-autoplay').on('click', this.scrollAnimation.bind(this));
+      }
+
+    }
+
+
+    let autoplay = null;
+    $(document).ready(function () {
+      $(storyTriggerSelector).on('click', function () {
+        let key = $(this).data('key');
+        setCurrentStoryPartMap(key);
+      });
+
+
+      // Set up scroll triggers
+      $(storyContainerSelector).scroll(scrollStory);
+      autoplay = new StoryAutoplay(storyContainerSelector,"story-autoplay",'.story-first','.story-last');
+
+    });
+  </script>
+
+{% endblock content %}
