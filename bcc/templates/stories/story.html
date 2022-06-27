@@ -30,7 +30,7 @@
          style="height: 80vh; padding-left: 5%; padding-bottom: 500px;overflow: scroll;">
       <h1>Story</h1>
       <div><a href="#" class="story-autoplay">Autoplay</a></div>
-       <p class="story-first"></p>
+      <p class="story-first"></p>
       <p>
         <!----------- this part should be called in markdown ---------------------->
 
@@ -69,7 +69,8 @@
       </p>
       <!-- Story start -->
       <h1><em>We came out of this ground:</em> Indigenous homelands</h1>
-      <p class="story-trigger" data-storyframe="5">American history is Indigenous history. It begins with the deep history of the land and its
+      <p class="story-trigger" data-storyframe="5">American history is Indigenous history. It begins with the deep
+        history of the land and its
         peoples as they existed long before the arrival of Europeans. The first parties of English – most of them
         professional soldiers – made coastal landings and probed the dozens of rivers that led inland. They claimed
         possession of these spaces according to legal arguments that gave ownership of empty land to whomever discovered
@@ -211,16 +212,10 @@
       '/static/data/stories/BCC_Poly.geojson'
     ];
     let storyData = '';
-    let shapeLayer = null;
+    let shapeLayers = null;
     let storyFeatures = {}; // All features from json files
     let current_story = 0; // Our current story
     let current_frame = 0; // current frame
-
-    // and we have a function that does something with the geoJSON file:
-    function handleStoriesGeoJson(data) {
-      // data is the JSON parsed into a JS object
-      console.log(data)
-    }
 
     class Story {
       constructor(fid, multiPolygonBounds, description) {
@@ -230,9 +225,9 @@
       }
     }
 
-        /*
-     Set up the offsets for the autoplay
-     */
+    /*
+ Set up the offsets for the autoplay
+ */
     class StoryAutoplay {
       autoplayTopSelector;
       autoplayBottomSelector;
@@ -240,19 +235,19 @@
       containerSelector;
       playInterval = 8000;
 
-      autoplayFinished(){
+      autoplayFinished() {
 
       }
 
       scrollAnimation() {
-        const scrollTop =  $(this.autoplayBottomSelector).offset()['top'];
+        const scrollTop = $(this.autoplayBottomSelector).offset()['top'];
         const interval = this.playInterval;
         $(this.containerSelector).animate({
-          scrollTop:scrollTop
+          scrollTop: scrollTop
         }, interval, this.autoplayFinished);
       }
 
-      constructor(container,autoplayTrigger, autoplayTop, autoplayBottom) {
+      constructor(container, autoplayTrigger, autoplayTop, autoplayBottom) {
         this.autoplayTriggerSelector = autoplayTrigger;
         this.autoplayTopSelector = autoplayTop;
         this.autoplayBottomSelector = autoplayBottom;
@@ -313,6 +308,7 @@
     async function loadShapes(shape_urls) {
       let shapePromises = [];
       let shapeGeoJSON = [];
+      let shapesByFrameLink = {};
       let shapeLayers = {};
       for (let u = 0; u < shape_urls.length; u++) {
         shapePromises.push(loadShapeFile(shape_urls[u]));
@@ -322,14 +318,39 @@
           shapeGeoJSON.push(...values[v].features);
         }
       });
+      let unlinkedShapes = [];
       // Arrange into stories and default layer
+      for (let s = 0; s < shapeGeoJSON.length; s++) {
+        let feature = shapeGeoJSON[s];
+        if (feature.properties && feature.properties.frame_link) {
+          let frame_link = feature.properties.frame_link;
+          if (shapesByFrameLink[frame_link]) {
+            shapesByFrameLink[frame_link].push(feature);
+          } else {
+            shapesByFrameLink[frame_link] = [feature]
+          }
+        } else {
+          unlinkedShapes.push(feature);
+        }
 
-      let shapeLayer = L.geoJSON(shapeGeoJSON, {
+      }
+      const unlinkedShapeLayer = L.geoJSON(unlinkedShapes, {
         style: defaultLineStyle,
         onEachFeature: onEachFeature,
       }).addTo(map);
+      shapeLayers.unlinked = unlinkedShapes;
 
-      return shapeLayer;
+      for (const [key, value] of Object.entries(shapesByFrameLink)) {
+        let shapeLayer = L.geoJSON(value, {
+          style: defaultLineStyle,
+          onEachFeature: onEachFeature,
+        }).addTo(map);
+        shapeLayers[key] = shapeLayer;
+
+      }
+
+
+      return shapeLayers;
     }
 
     /** Load all the Geojson files
@@ -338,7 +359,7 @@
      */
     async function loadGeoJsonData() {
       storyData = await loadStoryData(story_geojson);
-      shapeLayer = await loadShapes(shape_urls);
+      shapeLayers = await loadShapes(shape_urls);
 
     }
 
@@ -375,9 +396,8 @@
         return $(a).offset().top - $(b).offset().top;
       });
       // If this isn't the current trigger
-      if (current_story !== parseInt($(triggers[0]).data('storyframe'))){
+      if (current_story !== parseInt($(triggers[0]).data('storyframe'))) {
         current_story = parseInt($(triggers[0]).data('storyframe'));
-        console.log(current_story);
         setCurrentStory(current_story);
       }
 
@@ -401,6 +421,21 @@
       if (story) {
         map.flyToBounds(story.multiPolygonBounds.getBounds());
       }
+      Object.keys(shapeLayers).forEach(function (key) {
+        if (parseInt(key) === parseInt(fid)) {
+          console.log(key + " " + shapeLayers[key]);
+        }
+      });
+      /*
+      for (const [key, value] of Object.entries(shapeLayers)) {
+
+        if (key === fid){
+          console.log(value);
+          value.setStyle(highlightLineStyle);
+        }else{
+          value.setStyle(defaultLineStyle);
+        }
+      }*/
 
       // Change highlights for layers
       //shapeLayer.setStyle(highlightLineStyle);
@@ -419,7 +454,7 @@
     $(document).ready(function () {
       // Set up scroll triggers
       $(storyContainerSelector).scroll(scrollStory);
-      autoplay = new StoryAutoplay(storyContainerSelector,"story-autoplay",'.story-first','.story-last');
+      autoplay = new StoryAutoplay(storyContainerSelector, "story-autoplay", '.story-first', '.story-last');
     });
   </script>
 
