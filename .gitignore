@@ -319,7 +319,7 @@ Session.vim
 tags
 
 ### Project template
-
+bcc/static/maps/*
 bcc/media/
 
 .pytest_cache/
