@@ -205,7 +205,7 @@
     let current_story = 0; // Our current story
     let current_frame = 0; // current frame
     let addedLayer = null;
-    let allFeatures = [];
+
     let shapesByFrameLink = {};
 
     class Story {
@@ -252,12 +252,11 @@
       // does this feature have a property named popupContent?
       if (feature.properties && (feature.properties.map_text || feature.properties.norm_text)) {
         if (feature.properties.map_text) {
-          layer.bindPopup(feature.properties.map_text).openPopup();
+          layer.bindPopup(feature.properties.map_text);
         } else {
-          layer.bindPopup(feature.properties.norm_text).openPopup();
+          layer.bindPopup(feature.properties.norm_text);
         }
       }
-      allFeatures.push(feature);
 
     }
 
@@ -402,18 +401,20 @@
         map.flyToBounds(story.multiPolygonBounds.getBounds());
       }
       Object.keys(shapesByFrameLink).forEach(function (key) {
-        if (parseInt(key) === parseInt(fid)) {
+        if (parseInt(key) === parseInt(fid) && !shapeLayers[fid]) {
           let shapeLayer = L.geoJSON(shapesByFrameLink[key], {
             style: defaultLineStyle,
             onEachFeature: onEachFeature,
           }).addTo(map);
           shapeLayers[key] = shapeLayer;
-          //shapeLayer
-          /*shapeLayers[key].addTo(map);
-          addedLayer = shapeLayers[key];
-          console.log(addedLayer);*/
+
         }
       });
+      if (shapeLayers[fid]) {
+        shapeLayers[fid].eachLayer(function (layer) {
+          layer.openPopup();
+        });
+      }
     }
 
     async function loadStory() {
